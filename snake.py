@@ -1,4 +1,5 @@
 import pygame
+import pygame_menu
 from constants import *
 
 class Body:
@@ -45,17 +46,23 @@ class Snake:
             self.longueur += 1
             food.change_position()
         
-        if self.list_body[0].x == -1 or self.list_body[0].x >= NMBRE_CASE_X or self.list_body[0].y == -1 or self.list_body[0].y >= NMBRE_CASE_Y:
+        if self.list_body[0].x == -1 or self.list_body[0].x >= NMBRE_CASE_X or self.list_body[0].y == -1 or self.list_body[0].y >= NMBRE_CASE_Y:            
             self.__init__()
+        
+        for body in self.list_body:
+            if self.list_body[0] != body:
+                if self.list_body[0].x == body.x and self.list_body[0].y == body.y:
+                    self.__init__()
     
+
     def actualisation_direction(self, keys):
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] and self.direction != 2:
             self.direction = 0
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and self.direction != 3:
             self.direction = 1
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and self.direction != 0:
             self.direction = 2
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and self.direction != 1:
             self.direction = 3 
 
 
