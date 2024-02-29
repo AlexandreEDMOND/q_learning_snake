@@ -1,6 +1,11 @@
+from affichage_pygame import *
+
 
 def main():
-    print("Oui")
+    screen = init_pygame()
+    main_loop_pygame(screen)
+
 
 if __name__ == "__main__":
     main()
+
