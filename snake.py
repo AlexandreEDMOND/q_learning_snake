@@ -16,8 +16,8 @@ class Body:
 class Snake:
 
     def __init__(self):
-        self.list_body = [Body(10, 10)]
-        self.longueur = 1
+        self.list_body = [Body(10, 10), Body(11, 10), Body(12, 10)]
+        self.longueur = 3
         self.direction = 0
     
     def movement(self, food):
@@ -43,6 +43,10 @@ class Snake:
             last_body = self.list_body[-1]
             self.list_body.append(Body(last_body.x, last_body.y))
             self.longueur += 1
+            food.change_position()
+        
+        if self.list_body[0].x == -1 or self.list_body[0].x >= NMBRE_CASE_X or self.list_body[0].y == -1 or self.list_body[0].y >= NMBRE_CASE_Y:
+            self.__init__()
     
     def actualisation_direction(self, keys):
         if keys[pygame.K_LEFT]:

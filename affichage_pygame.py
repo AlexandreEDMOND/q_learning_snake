@@ -44,6 +44,6 @@ def main_loop_pygame(screen):
 
 def affichage_quadrillage(screen):
     for i in range(NMBRE_CASE_Y):
-        pygame.draw.line(screen, (255, 255, 255), (0, i*LONG_CASE_Y), (SIZE_SCREEN[0], i*LONG_CASE_Y), 1)
+        pygame.draw.line(screen, COLOR_QUADRILLAGE, (0, i*LONG_CASE_Y), (SIZE_SCREEN[0], i*LONG_CASE_Y), 1)
     for i in range(NMBRE_CASE_X):
-        pygame.draw.line(screen, (255, 255, 255), (i*LONG_CASE_X, 0), (i*LONG_CASE_X, SIZE_SCREEN[1]), 1)
+        pygame.draw.line(screen, COLOR_QUADRILLAGE, (i*LONG_CASE_X, 0), (i*LONG_CASE_X, SIZE_SCREEN[1]), 1)
