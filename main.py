@@ -1,9 +1,11 @@
 from affichage_pygame import *
-
+from game import *
 
 def main():
-    screen = init_pygame()
-    main_loop_pygame(screen)
+    jeu = Game()
+    jeu.main_loop()
+
+    return
 
 
 if __name__ == "__main__":
