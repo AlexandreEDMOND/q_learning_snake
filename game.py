@@ -2,6 +2,8 @@ from snake import *
 from food import *
 from constants import *
 from affichage_pygame import *
+from q_network import *
+import numpy as np
 
 class Game:
 
@@ -14,6 +16,7 @@ class Game:
         self.food = Food()
         self.clock = pygame.time.Clock()
         self.fps = FPS
+        self.Q_network = QNetwork(5, 3)
     
     def main_loop(self):
         pygame.init()
@@ -28,6 +31,13 @@ class Game:
                     # Récupérer les touches enfoncées
                     keys = pygame.key.get_pressed()
                     self.snake.actualisation_direction(keys)
+
+            # Générer des données d'entrée aléatoires
+            input_data = np.random.rand(5)
+            input_tensor = torch.FloatTensor(input_data)
+            output_tensor = self.Q_network(input_tensor)
+            output_data = output_tensor.detach().numpy()
+            print(output_data)
 
             self.snake.movement(self.food)
 
