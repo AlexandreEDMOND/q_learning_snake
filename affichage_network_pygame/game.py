@@ -2,7 +2,6 @@ from snake import *
 from food import *
 from network import *
 import torch
-import torch.nn as nn
 import pygame
 
 SIZE_SCREEN = (600, 600)
@@ -17,7 +16,7 @@ class Game:
         self.init_board()
         self.food = Food(taille_board, self.board)
         self.network = Network(33, 3)
-        self.network.load_state_dict(torch.load('network_trained\model_trained.pth'))
+        self.network.load_state_dict(torch.load('network_trained\model_trained_score_7.pth'))
         self.network.eval()
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
         pygame.display.set_caption('Snake')
@@ -137,12 +136,17 @@ class Game:
     def main_loop(self):
 
         print("Début Boucle Principal")
+        clock = pygame.time.Clock()
 
         turn_limit = 10000
 
         running = True
         turn = 0
         while running:
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
 
             self.actualisation_board()
             
@@ -167,9 +171,8 @@ class Game:
                 running = False
             
             pygame.display.flip()
-        
-        # Enregistrement du modèle
-        torch.save(self.network.state_dict(), 'network_trained/model_trained.pth')
+
+            clock.tick(5)
         
 
             

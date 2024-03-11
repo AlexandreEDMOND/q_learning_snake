@@ -2,17 +2,17 @@ from snake import *
 from food import *
 from network import *
 import torch
-import torch.nn as nn
 
 class Game:
 
-    def __init__(self, taille_board):
+    def __init__(self, taille_board, turn_limit=100, network=Network(33, 3)):
         self.board = []
         self.taille_board = taille_board
+        self.turn_limit = turn_limit
         self.snake = Snake([[taille_board//2, taille_board//2]])
         self.init_board()
         self.food = Food(taille_board, self.board)
-        self.network = Network(33, 3)
+        self.network = network
 
     def init_board(self):
         # Remplissage de case vide
@@ -34,7 +34,12 @@ class Game:
 
         # Ajout du snake
         for position_snake in self.snake.list_body:
-            self.board[position_snake[0]][position_snake[1]] = -1
+            try:
+                self.board[position_snake[0]][position_snake[1]] = -1
+            except:
+                print(position_snake[0], position_snake[1])
+                print(self.turn)
+                return
 
     def affichage_board(self):
 
@@ -74,7 +79,7 @@ class Game:
         if head in snake_without_head:
             return 1
         
-        if head[0] == -1 or head[0] >= self.taille_board or head[1] == -1 or head[1] >= self.taille_board:
+        if head[0] < 0 or head[0] >= self.taille_board or head[1] < 0 or head[1] >= self.taille_board:
             return 1
         
         return 0
@@ -116,10 +121,9 @@ class Game:
 
     def main_loop(self):
 
-        print("Début Boucle Principal")
+        #print("Début Boucle Principal")
 
         allowed_keys = ["q", "z", "d", "e"]
-        turn_limit = 1000
 
         running = True
         turn = 0
@@ -155,11 +159,13 @@ class Game:
                 running = False
             
             turn += 1
-            if turn == turn_limit:
+            if turn >= self.turn_limit:
                 running = False
         
+    def sauvegarde(self):
         # Enregistrement du modèle
-        torch.save(self.network.state_dict(), 'network_trained/model_trained.pth')
+        print("Enregistrement du modèle")
+        torch.save(self.network.state_dict(), f'network_trained/model_trained_score_{len(self.snake.list_body)-1}.pth')
         
 
             
