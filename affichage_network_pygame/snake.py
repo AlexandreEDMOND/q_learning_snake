@@ -9,6 +9,9 @@ class Snake:
 
 
     def change_direction(self, decision):
+        if decision not in [-1, 0, 1]:
+            print("Erreur entrée change_direction")
+            exit(0)
         self.direction += decision
         if self.direction == -1:
             self.direction = 3

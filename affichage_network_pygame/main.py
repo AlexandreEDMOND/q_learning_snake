@@ -1,7 +1,7 @@
 from game import *
 
 def main():
-    jeu = Game(10)
+    jeu = Game(6)
     jeu.main_loop()
 
     return

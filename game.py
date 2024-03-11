@@ -1,13 +1,12 @@
 from snake import *
 from food import *
 from constants import *
-from affichage_pygame import *
 from q_network import *
 import numpy as np
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, taille_board):
         self.w = SIZE_SCREEN[0]
         self.h = SIZE_SCREEN[1]
         self.screen = pygame.display.set_mode((self.w, self.h))
@@ -16,7 +15,9 @@ class Game:
         self.food = Food()
         self.clock = pygame.time.Clock()
         self.fps = FPS
-        self.Q_network = QNetwork(5, 3)
+        self.Q_network = QNetwork(taille_board**2, 3)
+        self.Q_network.load_state_dict(torch.load('network_trained\model_trained.pth'))
+        self.Q_network.eval()
     
     def main_loop(self):
         pygame.init()
