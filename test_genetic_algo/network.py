@@ -11,6 +11,5 @@ class Network(nn.Module):
     def forward(self, x):
         x = F.relu(self.fc(x))
         x = self.fc2(x)
-        x = F.softmax(x, dim=x.dim()-1)  # Cela appliquera softmax sur la dernière dimension, qu'importe le shape de x
         return x
     
