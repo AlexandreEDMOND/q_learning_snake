@@ -16,7 +16,7 @@ class Game:
         self.init_board()
         self.food = Food(taille_board, self.board)
         self.network = Network(33, 3)
-        self.network.load_state_dict(torch.load('network_trained\model_trained_score_test.pth'))
+        self.network.load_state_dict(torch.load('network_trained\model_trained_gen_294_score_2.9.pth'))
         self.network.eval()
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
         pygame.display.set_caption('Snake')

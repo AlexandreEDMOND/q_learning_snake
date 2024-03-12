@@ -5,8 +5,8 @@ import torch.nn.functional as F
 class Network(nn.Module):
     def __init__(self, input_size, output_size):
         super(Network, self).__init__()
-        self.fc = nn.Linear(input_size, 50)
-        self.fc2 = nn.Linear(50, output_size)
+        self.fc = nn.Linear(input_size, 16)
+        self.fc2 = nn.Linear(16, output_size)
 
     def forward(self, x):
         x = F.relu(self.fc(x))
